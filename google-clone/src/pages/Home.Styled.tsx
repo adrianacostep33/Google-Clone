@@ -3,6 +3,7 @@ import { styled } from "@mui/system";
 export const HomePageContainer = styled("div")`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   height: 100vh;
 `;
 
@@ -44,9 +45,23 @@ export const LogoContainer = styled("div")`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 15%;
+  // margin-top: 260px;
   img {
     object-fit: contain;
     height: 92px;
   }
+`;
+
+export const MainContainer = styled("main")`
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  justify-content: center;
+  flex: 1;
+`;
+
+export const FooterContainer = styled("div")`
+  margin-top: 250px;
+  width: 60px;
+  height: 60px;
 `;

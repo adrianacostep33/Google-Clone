@@ -1,17 +1,18 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import { IconButton } from "@mui/material";
 import AppsIcon from "@mui/icons-material/Apps";
-
+import SearchInput from "../components/SearchInput";
 import {
   HomePageContainer,
   HeaderContainer,
   LogInButton,
   LogoContainer,
-  SearchInput,
+  MainContainer,
+  FooterContainer,
 } from "./Home.Styled";
-import { useState } from "react";
 
 const Home = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -58,13 +59,20 @@ const Home = () => {
           </LogInButton>
         )}
       </HeaderContainer>
-      <LogoContainer>
-        <img
-          src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png"
-          alt="google-logo"
-        />
-      </LogoContainer>
-   
+
+      <MainContainer>
+        <LogoContainer>
+          <img
+            src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png"
+            alt="google-logo"
+          />
+        </LogoContainer>
+        <div>
+          <SearchInput></SearchInput>
+        </div>
+      </MainContainer>
+      
+      <FooterContainer></FooterContainer>
     </HomePageContainer>
   );
 };
