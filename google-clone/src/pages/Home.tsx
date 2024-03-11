@@ -4,7 +4,13 @@ import Tooltip from "@mui/material/Tooltip";
 import { IconButton } from "@mui/material";
 import AppsIcon from "@mui/icons-material/Apps";
 
-import { HomePageContainer, HeaderContainer, LogInButton } from "./Home.Styled";
+import {
+  HomePageContainer,
+  HeaderContainer,
+  LogInButton,
+  LogoContainer,
+  SearchInput,
+} from "./Home.Styled";
 import { useState } from "react";
 
 const Home = () => {
@@ -52,6 +58,13 @@ const Home = () => {
           </LogInButton>
         )}
       </HeaderContainer>
+      <LogoContainer>
+        <img
+          src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png"
+          alt="google-logo"
+        />
+      </LogoContainer>
+   
     </HomePageContainer>
   );
 };

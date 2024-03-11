@@ -39,3 +39,14 @@ export const LogInButton = styled("button")`
   letter-spacing: 0.25px;
   border-radius: 4px;
 `;
+
+export const LogoContainer = styled("div")`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15%;
+  img {
+    object-fit: contain;
+    height: 92px;
+  }
+`;
