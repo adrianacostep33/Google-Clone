@@ -3,13 +3,12 @@ import SearchIcon from "@mui/icons-material/Search";
 
 export const InputWrapper = styled("div")`
   display: flex;
+  flex: 1;
   align-items: center;
   justify-content: center;
-  width: 75%;
   height: 20px;
   padding: 23px 24px;
   margin: 0 auto;
-  margin-top: 24px;
   max-width: 560px;
   min-width: 300px;
   border: 0.1px solid rgb(95, 99, 104);
@@ -43,7 +42,7 @@ export const ButtonContainer = styled("div")`
   padding-top: 18px;
   button {
     min-height: 32px;
-    min-width: 54px;
+    min-width: 92px;
     text-transform: inherit;
     font-size: 14px;
     font-family: arial, sans-serif;
@@ -62,6 +61,3 @@ export const ButtonContainer = styled("div")`
   }
 `;
 
-// export const Button = styled("button")`
-//   background-color: #d30000;
-// `;

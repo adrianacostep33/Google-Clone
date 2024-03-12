@@ -39,6 +39,7 @@ export const LogInButton = styled("button")`
   font-size: 14px;
   letter-spacing: 0.25px;
   border-radius: 4px;
+  white-space: nowrap;
 `;
 
 export const LogoContainer = styled("div")`
