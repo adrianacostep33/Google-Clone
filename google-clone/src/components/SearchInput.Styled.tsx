@@ -37,7 +37,7 @@ export const StyledSearchIcon = styled(SearchIcon)`
 `;
 
 export const ButtonContainer = styled("div")`
-  display: flex;
+  display: ${(showButtons) => (showButtons ? "flex" : "none")};
   justify-content: center;
   align-items: center;
   padding-top: 18px;

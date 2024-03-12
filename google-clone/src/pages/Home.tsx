@@ -19,7 +19,7 @@ import {
 } from "./Home.Styled";
 
 const Home = () => {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   return (
     <HomePageContainer>
@@ -72,7 +72,7 @@ const Home = () => {
           />
         </LogoContainer>
         <div>
-          <SearchInput></SearchInput>
+          <SearchInput showButtons={true} />
         </div>
       </MainContainer>
 
