@@ -12,16 +12,20 @@ import {
   LogoContainer,
   MainContainer,
   FooterContainer,
+  FooterLeft,
+  FooterRight,
+  UpperFooter,
+  LowerFooter,
 } from "./Home.Styled";
 
 const Home = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   return (
     <HomePageContainer>
       <HeaderContainer>
         <Link to="/gmail">Gmail</Link>
-        <Link to="/Images">Images</Link>
+        <Link to="/images">Images</Link>
         <Tooltip title="Google apps">
           <IconButton
             sx={{
@@ -71,8 +75,26 @@ const Home = () => {
           <SearchInput></SearchInput>
         </div>
       </MainContainer>
-      
-      <FooterContainer></FooterContainer>
+
+      <FooterContainer>
+        <UpperFooter>
+          <p>Romania</p>
+        </UpperFooter>
+        <LowerFooter>
+          <FooterLeft>
+            <Link to="/about">About</Link>
+            <Link to="/advertising">Advertising</Link>
+            <Link to="/business">Business</Link>
+            <Link to="/search/works">How Search works</Link>
+          </FooterLeft>
+
+          <FooterRight>
+            <Link to="/privacy">Privacy</Link>
+            <Link to="/terms">Terms</Link>
+            <Link to="/settings">Settings</Link>
+          </FooterRight>
+        </LowerFooter>
+      </FooterContainer>
     </HomePageContainer>
   );
 };

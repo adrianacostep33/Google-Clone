@@ -45,7 +45,6 @@ export const LogoContainer = styled("div")`
   display: flex;
   flex-direction: column;
   align-items: center;
-  // margin-top: 260px;
   img {
     object-fit: contain;
     height: 92px;
@@ -55,13 +54,89 @@ export const LogoContainer = styled("div")`
 export const MainContainer = styled("main")`
   display: flex;
   flex-direction: column;
-  // align-items: center;
   justify-content: center;
   flex: 1;
+  position: absolute;
+  top: 25%; /* Positions it approximately 1/3 from the top */
+  left: 0; /* Align it to the left edge of the container */
+  right: 0; /* Align it to the right edge of the container */
 `;
 
 export const FooterContainer = styled("div")`
-  margin-top: 250px;
-  width: 60px;
-  height: 60px;
+  display: flex;
+  flex-direction: column;
+  padding: 0px 20px;
+  background-color: #171717;
+`;
+
+export const UpperFooter = styled("div")`
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  border-bottom: 1px solid #3c4043;
+
+  p {
+    display: block;
+    white-space: nowrap;
+    padding: 15px;
+    margin: 0px 5px;
+    color: #e8eaed;
+    text-decoration: none;
+    font-size: 14px;
+    font-family: arial, sans-serif;
+  }
+`;
+
+export const LowerFooter = styled("div")`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #171717;
+  border-bottom: 1px solid #3c4043;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+
+  @media (max-width: 1120px) {
+    gap: 20px;
+  }
+`;
+
+export const FooterLeft = styled("div")`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  a {
+    display: block;
+    white-space: nowrap;
+    padding: 15px;
+    margin: 0px 5px;
+    color: #e8eaed;
+    text-decoration: none;
+    font-size: 14px;
+    font-family: arial, sans-serif;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
+export const FooterRight = styled("div")`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  a {
+    display: block;
+    white-space: nowrap;
+    padding: 15px;
+    margin: 0px 5px;
+    color: #e8eaed;
+    text-decoration: none;
+    font-size: 14px;
+    font-family: arial, sans-serif;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `;

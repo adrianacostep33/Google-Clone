@@ -7,15 +7,19 @@ export const InputWrapper = styled("div")`
   justify-content: center;
   width: 75%;
   height: 20px;
-  padding: 22px 24px;
+  padding: 23px 24px;
   margin: 0 auto;
   margin-top: 24px;
   max-width: 560px;
+  min-width: 300px;
   border: 0.1px solid rgb(95, 99, 104);
   border-radius: 999px;
+  &:hover {
+    background-color: #303134;
+  }
   input {
     flex: 1;
-    background-color: ${({ theme }) => theme?.body?.darkColor};
+    background-color: inherit;
     border: none;
     padding: 10px 24px;
     font-size: medium;
