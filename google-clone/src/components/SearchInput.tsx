@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
 import { Button } from "@mui/material";
@@ -8,27 +7,37 @@ import {
   StyledSearchIcon,
   ButtonContainer,
 } from "./SearchInput.Styled";
+import { useSearchContext } from "../contexts/SearchContext";
 
 const SearchInput = ({ showButtons = false }) => {
-  const [searchInput, setSearchInput] = useState("");
   const navigate = useNavigate();
+  const { inputValue, setInputValue } = useSearchContext();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchInput(event.target.value);
-    console.log(event.target.value);
+    event.preventDefault();
+    setInputValue(event.target.value);
   };
 
-  const handleSearch = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleSearch = (
+    e:
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+      | React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
-    navigate(`/search?${searchInput}`);
+    navigate(`/search?key=${inputValue}`);
   };
+
   return (
-    <form>
+    <form
+      onSubmit={(e) => {
+        handleSearch(e);
+      }}
+    >
       <InputWrapper>
         <StyledSearchIcon />
         <input
           type="text"
-          value={searchInput}
+          value={inputValue}
           onChange={(e) => handleInputChange(e)}
         />
         <Tooltip title="Search by voice">
