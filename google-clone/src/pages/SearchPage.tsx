@@ -42,7 +42,8 @@ export interface Result {
 }
 
 const SearchPage = () => {
-  let [results, setResults] = useState<Result[]>([]);
+  const [results, setResults] = useState<Result[]>([]);
+
   const { inputValue, setInputValue } = useSearchContext();
 
   const location = useLocation();
@@ -55,12 +56,9 @@ const SearchPage = () => {
     const q = query(
       collection(db, "results"),
       where("lowercaseTitle", ">=", value!.toLowerCase()),
-      where("lowercaseTitle", "<=", value!.toLowerCase() + "\uf8ff"),
-      where("name", ">=", value!.toLowerCase()),
-      where("name", "<=", value!.toLowerCase() + "\uf8ff"),
-      where("description", ">=", value!.toLowerCase()),
-      where("description", "<=", value!.toLowerCase() + "\uf8ff")
+      where("lowercaseTitle", "<=", value!.toLowerCase() + "\uf8ff")
     );
+
     const querySnapshot = await getDocs(q);
 
     const documents: Result[] = [];
@@ -87,8 +85,6 @@ const SearchPage = () => {
     getDataFromFirestore();
     setInputValue(value);
   }, [value]);
-
-  console.log({ results });
 
   return (
     <SearchPageContainer>
