@@ -1,10 +1,9 @@
 import { IconButton, Tooltip } from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import SearchInput from "../components/SearchInput";
 import { LogInButton } from "./Home.Styled";
-
 import {
   HeaderContainer,
   LogoContainer,
@@ -21,70 +20,45 @@ import {
   UpperHeaderRight,
 } from "./SearchPage.Styled";
 import AppsIcon from "@mui/icons-material/Apps";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSearchContext } from "../contexts/SearchContext";
-import {
-  collection,
-  getDocs,
-  getFirestore,
-  query,
-  where,
-} from "firebase/firestore";
-import SearchResults from "../components/SearchResults";
+import { collection, getDocs, getFirestore, query, where } from "firebase/firestore";
+import { Result } from "./SearchPage";
 
-export interface Result {
-  id: string;
-  url: string;
-  title: string;
-  name: string;
-  image?: string;
-  description?: string;
-}
-
-const SearchPage = () => {
-  const [results, setResults] = useState<Result[]>([]);
-
+export const SearchPage = () => {
+  let [results, setResults] = useState<Result[]>([]);
   const { inputValue, setInputValue } = useSearchContext();
-
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const value = queryParams.get("key");
+  console.log({ inputValue });
 
   const db = getFirestore();
 
   const getDataFromFirestore = async () => {
+    console.log("AAA");
+
     const q = query(
       collection(db, "results"),
-      where("lowercaseTitle", ">=", value!.toLowerCase()),
-      where("lowercaseTitle", "<=", value!.toLowerCase() + "\uf8ff")
+      where("title", "==", inputValue)
     );
-
+    console.log({ q });
     const querySnapshot = await getDocs(q);
+    console.log({ querySnapshot });
 
     const documents: Result[] = [];
     querySnapshot.forEach((doc) => {
-      const data = doc.data();
+      console.log({ doc });
 
-      documents.push({
-        id: doc.id,
-        url: data.url,
-        title: data.title,
-        name: data.name,
-        description: data.description,
-        image: data.image,
-      });
+      const data = doc.data();
+      console.log({ data });
+
+      documents.push({ id: doc.id, url: data.url, title: data.title });
     });
     setResults(documents);
   };
 
   useEffect(() => {
-    if (!value) {
-      setInputValue("");
-      return;
-    }
     getDataFromFirestore();
-    setInputValue(value);
-  }, [value]);
+    console.log("useEffect");
+  }, [inputValue]);
 
   return (
     <SearchPageContainer>
@@ -177,9 +151,6 @@ const SearchPage = () => {
           </LowerHeaderRight>
         </LowerHeader>
       </HeaderContainer>
-      <SearchResults results={results} />;
     </SearchPageContainer>
   );
 };
-
-export default SearchPage;
