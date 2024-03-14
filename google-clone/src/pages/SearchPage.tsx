@@ -200,7 +200,7 @@ const SearchPage = () => {
           </LowerHeaderRight>
         </LowerHeader>
       </HeaderContainer>
-      <SearchResults results={results} />;
+      <SearchResults results={results} />
     </SearchPageContainer>
   );
 };

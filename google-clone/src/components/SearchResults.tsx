@@ -43,6 +43,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                       fontSize: "0.875rem",
                       lineHeight: "20px",
                       whiteSpace: "nowrap",
+                      cursor: "pointer",
                     }}
                   >
                     {result.title}
@@ -72,10 +73,11 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                 variant="h3"
                 component="h3"
                 sx={{
-                  color: "#c58af9",
+                  color: "#8ab4f8",
                   fontWeight: "400",
-                  fontSize: "1.5rem",
-                  marginTop: "18px",
+                  fontSize: "20px",
+                  marginTop: "10px",
+                  cursor: "pointer",
                 }}
               >
                 {result.name}
@@ -83,7 +85,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
               <Typography
                 variant="body1"
                 sx={{
-                  marginTop: "16px",
+                  marginTop: "6px",
                   fontSize: "0.875rem",
                   fontFamily: "Roboto, sans-serif",
                   fontWeight: "normal",
