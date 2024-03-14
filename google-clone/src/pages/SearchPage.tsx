@@ -1,9 +1,10 @@
 import { IconButton, Tooltip } from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import SearchInput from "../components/SearchInput";
 import { LogInButton } from "./Home.Styled";
+import tagEnum from "../enums/tagEnum";
 
 import {
   HeaderContainer,
@@ -15,7 +16,6 @@ import {
   SearchInputContainer,
   SearchPageContainer,
   StyledButton,
-  StyledOptions,
   UpperHeader,
   UpperHeaderLeft,
   UpperHeaderRight,
@@ -31,6 +31,7 @@ import {
   where,
 } from "firebase/firestore";
 import SearchResults from "../components/SearchResults";
+import FilterButton from "../components/FilterButton";
 
 export interface Result {
   id: string;
@@ -43,8 +44,9 @@ export interface Result {
 
 const SearchPage = () => {
   const [results, setResults] = useState<Result[]>([]);
+  const [tag, setTag] = useState<string>("all");
 
-  const { inputValue, setInputValue } = useSearchContext();
+  const { setInputValue } = useSearchContext();
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -53,10 +55,11 @@ const SearchPage = () => {
   const db = getFirestore();
 
   const getDataFromFirestore = async () => {
-    const q = query(
+    let q = query(
       collection(db, "results"),
       where("lowercaseTitle", ">=", value!.toLowerCase()),
-      where("lowercaseTitle", "<=", value!.toLowerCase() + "\uf8ff")
+      where("lowercaseTitle", "<=", value!.toLowerCase() + "\uf8ff"),
+      where("tags", "array-contains", tag)
     );
 
     const querySnapshot = await getDocs(q);
@@ -84,7 +87,9 @@ const SearchPage = () => {
     }
     getDataFromFirestore();
     setInputValue(value);
-  }, [value]);
+  }, [value, tag]);
+
+  console.log({ results });
 
   return (
     <SearchPageContainer>
@@ -135,29 +140,47 @@ const SearchPage = () => {
 
         <LowerHeader>
           <LowerHeaderLeft>
-            <StyledOptions>
-              <Link to="/all">All</Link>
-            </StyledOptions>
-
-            <StyledOptions>
-              <Link to="/news">News</Link>
-            </StyledOptions>
-
-            <StyledOptions>
-              <Link to="/shopping">Shopping</Link>
-            </StyledOptions>
-
-            <StyledOptions>
-              <Link to="/images">Images</Link>
-            </StyledOptions>
-
-            <StyledOptions>
-              <Link to="/maps">Maps</Link>
-            </StyledOptions>
-
-            <StyledOptions>
-              <Link to="/more">More</Link>
-            </StyledOptions>
+            <FilterButton
+              filter={tagEnum.All}
+              label="All"
+              tag={tag}
+              setTag={setTag}
+            />
+            <FilterButton
+              active={tag === tagEnum.News}
+              filter="news"
+              label="News"
+              tag={tag}
+              setTag={setTag}
+            />
+            <FilterButton
+              active={tag === tagEnum.Shopping}
+              filter="shopping"
+              label="Shopping"
+              tag={tag}
+              setTag={setTag}
+            />
+            <FilterButton
+              active={tag === tagEnum.Images}
+              filter="images"
+              label="Images"
+              tag={tag}
+              setTag={setTag}
+            />
+            <FilterButton
+              active={tag === tagEnum.Maps}
+              filter="maps"
+              label="Maps"
+              tag={tag}
+              setTag={setTag}
+            />
+            <FilterButton
+              active={tag === tagEnum.More}
+              filter="more"
+              label="More"
+              tag={tag}
+              setTag={setTag}
+            />
           </LowerHeaderLeft>
 
           <LowerHeaderMiddle>
@@ -177,7 +200,7 @@ const SearchPage = () => {
           </LowerHeaderRight>
         </LowerHeader>
       </HeaderContainer>
-      <SearchResults results={results} />;
+      <SearchResults results={results} />
     </SearchPageContainer>
   );
 };

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
@@ -18,8 +18,15 @@ import {
   LowerFooter,
 } from "./Home.Styled";
 
+// import { seedFirestore } from "../seedFirestore";
+
 const Home = () => {
   const [loggedIn, setLoggedIn] = useState(false);
+
+  // useEffect(() => {
+  //   // Call the seed function when the component mounts
+  //   seedFirestore();
+  // }, []);
 
   return (
     <HomePageContainer>
