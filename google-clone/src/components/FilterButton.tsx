@@ -2,6 +2,7 @@ import { StyledOptions } from "./FilterButton.Styled";
 import ClearIcon from "@mui/icons-material/Clear";
 import { Link } from "react-router-dom";
 import { useSearchContext } from "../contexts/SearchContext";
+import tagEnum from "../enums/tagEnum";
 
 type FilterButtonProps = {
   active?: boolean;
@@ -25,7 +26,7 @@ const FilterButton = ({
   };
 
   const handleRemoveTag = () => {
-    setTag("all");
+    setTag(tagEnum.All);
   };
 
   return (

@@ -1,9 +1,10 @@
 import { IconButton, Tooltip } from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import SearchInput from "../components/SearchInput";
 import { LogInButton } from "./Home.Styled";
+import tagEnum from "../enums/tagEnum";
 
 import {
   HeaderContainer,
@@ -15,7 +16,6 @@ import {
   SearchInputContainer,
   SearchPageContainer,
   StyledButton,
-  StyledOptions,
   UpperHeader,
   UpperHeaderLeft,
   UpperHeaderRight,
@@ -139,37 +139,42 @@ const SearchPage = () => {
 
         <LowerHeader>
           <LowerHeaderLeft>
-            <FilterButton filter="all" label="All" tag={tag} setTag={setTag} />
             <FilterButton
-              active={tag === "news"}
+              filter={tagEnum.All}
+              label="All"
+              tag={tag}
+              setTag={setTag}
+            />
+            <FilterButton
+              active={tag === tagEnum.News}
               filter="news"
               label="News"
               tag={tag}
               setTag={setTag}
             />
             <FilterButton
-              active={tag === "shopping"}
+              active={tag === tagEnum.Shopping}
               filter="shopping"
               label="Shopping"
               tag={tag}
               setTag={setTag}
             />
             <FilterButton
-              active={tag === "images"}
+              active={tag === tagEnum.Images}
               filter="images"
               label="Images"
               tag={tag}
               setTag={setTag}
             />
             <FilterButton
-              active={tag === "maps"}
+              active={tag === tagEnum.Maps}
               filter="maps"
               label="Maps"
               tag={tag}
               setTag={setTag}
             />
             <FilterButton
-              active={tag === "more"}
+              active={tag === tagEnum.More}
               filter="more"
               label="More"
               tag={tag}
