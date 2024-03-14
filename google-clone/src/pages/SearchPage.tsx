@@ -89,7 +89,8 @@ const SearchPage = () => {
     setInputValue(value);
   }, [value, tag]);
 
-  console.log({ tag });
+  console.log({ results });
+
   return (
     <SearchPageContainer>
       <HeaderContainer>

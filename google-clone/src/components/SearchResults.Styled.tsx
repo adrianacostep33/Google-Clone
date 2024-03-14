@@ -23,7 +23,7 @@ const SearchResultsWrapper = styled("div")`
   margin: 48px 0;
 `;
 
-const SearchResultsTitle = styled("a")`
+const SearchResultsTitle = styled("div")`
   display: flex;
   align-items: center;
   text-decoration: none;
