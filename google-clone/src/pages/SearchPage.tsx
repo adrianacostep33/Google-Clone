@@ -4,6 +4,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import SearchInput from "../components/SearchInput";
 import { LogInButton } from "./Home.Styled";
+import ClearIcon from "@mui/icons-material/Clear";
 
 import {
   HeaderContainer,
@@ -43,6 +44,7 @@ export interface Result {
 
 const SearchPage = () => {
   const [results, setResults] = useState<Result[]>([]);
+  const [tag, setTag] = useState<string>("all");
 
   const { inputValue, setInputValue } = useSearchContext();
 
@@ -53,10 +55,11 @@ const SearchPage = () => {
   const db = getFirestore();
 
   const getDataFromFirestore = async () => {
-    const q = query(
+    let q = query(
       collection(db, "results"),
       where("lowercaseTitle", ">=", value!.toLowerCase()),
-      where("lowercaseTitle", "<=", value!.toLowerCase() + "\uf8ff")
+      where("lowercaseTitle", "<=", value!.toLowerCase() + "\uf8ff"),
+      where("tags", "array-contains", tag)
     );
 
     const querySnapshot = await getDocs(q);
@@ -84,8 +87,20 @@ const SearchPage = () => {
     }
     getDataFromFirestore();
     setInputValue(value);
-  }, [value]);
+    // setTag("all");
+  }, [value, tag]);
 
+  const handleTags = (tag: string) => {
+    console.log("Set tag");
+    setTag(tag);
+  };
+
+  const handleRemoveTag = () => {
+    console.log("Remove tag");
+    setTag("all");
+  };
+
+  console.log({ tag });
   return (
     <SearchPageContainer>
       <HeaderContainer>
@@ -138,23 +153,43 @@ const SearchPage = () => {
             <StyledOptions>
               <Link to="/all">All</Link>
             </StyledOptions>
-
-            <StyledOptions>
-              <Link to="/news">News</Link>
-            </StyledOptions>
-
+            {tag === "news" ? (
+              <StyledOptions active="true">
+                <ClearIcon
+                  sx={{
+                    color: "#8ab4f8",
+                    width: "16px",
+                    height: "16px",
+                    fontWeight: "18px",
+                    marginRight: "6px",
+                  }}
+                />
+                <Link
+                  to={`${window.location.pathname}?key=${inputValue}`}
+                  onClick={handleRemoveTag}
+                >
+                  News
+                </Link>
+              </StyledOptions>
+            ) : (
+              <StyledOptions>
+                <Link
+                  to={`${window.location.pathname}?key=${inputValue}&news`}
+                  onClick={() => handleTags("news")}
+                >
+                  News
+                </Link>
+              </StyledOptions>
+            )}
             <StyledOptions>
               <Link to="/shopping">Shopping</Link>
             </StyledOptions>
-
             <StyledOptions>
               <Link to="/images">Images</Link>
             </StyledOptions>
-
             <StyledOptions>
               <Link to="/maps">Maps</Link>
             </StyledOptions>
-
             <StyledOptions>
               <Link to="/more">More</Link>
             </StyledOptions>
