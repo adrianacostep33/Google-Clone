@@ -4,7 +4,6 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import SearchInput from "../components/SearchInput";
 import { LogInButton } from "./Home.Styled";
-import ClearIcon from "@mui/icons-material/Clear";
 
 import {
   HeaderContainer,
@@ -32,6 +31,7 @@ import {
   where,
 } from "firebase/firestore";
 import SearchResults from "../components/SearchResults";
+import FilterButton from "../components/FilterButton";
 
 export interface Result {
   id: string;
@@ -46,7 +46,7 @@ const SearchPage = () => {
   const [results, setResults] = useState<Result[]>([]);
   const [tag, setTag] = useState<string>("all");
 
-  const { inputValue, setInputValue } = useSearchContext();
+  const { setInputValue } = useSearchContext();
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -87,18 +87,7 @@ const SearchPage = () => {
     }
     getDataFromFirestore();
     setInputValue(value);
-    // setTag("all");
   }, [value, tag]);
-
-  const handleTags = (tag: string) => {
-    console.log("Set tag");
-    setTag(tag);
-  };
-
-  const handleRemoveTag = () => {
-    console.log("Remove tag");
-    setTag("all");
-  };
 
   console.log({ tag });
   return (
@@ -150,49 +139,42 @@ const SearchPage = () => {
 
         <LowerHeader>
           <LowerHeaderLeft>
-            <StyledOptions>
-              <Link to="/all">All</Link>
-            </StyledOptions>
-            {tag === "news" ? (
-              <StyledOptions active="true">
-                <ClearIcon
-                  sx={{
-                    color: "#8ab4f8",
-                    width: "16px",
-                    height: "16px",
-                    fontWeight: "18px",
-                    marginRight: "6px",
-                  }}
-                />
-                <Link
-                  to={`${window.location.pathname}?key=${inputValue}`}
-                  onClick={handleRemoveTag}
-                >
-                  News
-                </Link>
-              </StyledOptions>
-            ) : (
-              <StyledOptions>
-                <Link
-                  to={`${window.location.pathname}?key=${inputValue}&news`}
-                  onClick={() => handleTags("news")}
-                >
-                  News
-                </Link>
-              </StyledOptions>
-            )}
-            <StyledOptions>
-              <Link to="/shopping">Shopping</Link>
-            </StyledOptions>
-            <StyledOptions>
-              <Link to="/images">Images</Link>
-            </StyledOptions>
-            <StyledOptions>
-              <Link to="/maps">Maps</Link>
-            </StyledOptions>
-            <StyledOptions>
-              <Link to="/more">More</Link>
-            </StyledOptions>
+            <FilterButton filter="all" label="All" tag={tag} setTag={setTag} />
+            <FilterButton
+              active={tag === "news"}
+              filter="news"
+              label="News"
+              tag={tag}
+              setTag={setTag}
+            />
+            <FilterButton
+              active={tag === "shopping"}
+              filter="shopping"
+              label="Shopping"
+              tag={tag}
+              setTag={setTag}
+            />
+            <FilterButton
+              active={tag === "images"}
+              filter="images"
+              label="Images"
+              tag={tag}
+              setTag={setTag}
+            />
+            <FilterButton
+              active={tag === "maps"}
+              filter="maps"
+              label="Maps"
+              tag={tag}
+              setTag={setTag}
+            />
+            <FilterButton
+              active={tag === "more"}
+              filter="more"
+              label="More"
+              tag={tag}
+              setTag={setTag}
+            />
           </LowerHeaderLeft>
 
           <LowerHeaderMiddle>
