@@ -1,20 +1,18 @@
+import { Link } from "react-router-dom";
 import { Result } from "../pages/SearchPage";
+import { Typography, IconButton } from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
   SearchResultsContainer,
   SearchResultsTitle,
   SearchResultsWrapper,
 } from "./SearchResults.Styled";
-import { Typography, IconButton } from "@mui/material";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Link } from "react-router-dom";
 
 interface SearchResultsProps {
   results: Result[];
 }
 
 const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
-  // console.log("Resulr component", { results });
-
   return (
     <SearchResultsContainer>
       <Typography
