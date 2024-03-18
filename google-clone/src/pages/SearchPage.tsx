@@ -23,23 +23,18 @@ import {
 import AppsIcon from "@mui/icons-material/Apps";
 import { useEffect, useState } from "react";
 import { useSearchContext } from "../contexts/SearchContext";
-import {
-  collection,
-  getDocs,
-  getFirestore,
-  query,
-  where,
-} from "firebase/firestore";
 import SearchResults from "../components/SearchResults";
 import FilterButton from "../components/FilterButton";
+import getDataByDescription from "../utils/getDataByDescription";
 
 export interface Result {
   id: string;
-  url: string;
-  title: string;
-  name: string;
+  url?: string;
+  title?: string;
+  name?: string;
   image?: string;
   description?: string;
+  tags?: string[];
 }
 
 const SearchPage = () => {
@@ -52,44 +47,22 @@ const SearchPage = () => {
   const queryParams = new URLSearchParams(location.search);
   const value = queryParams.get("key");
 
-  const db = getFirestore();
-
-  const getDataFromFirestore = async () => {
-    let q = query(
-      collection(db, "results"),
-      where("lowercaseTitle", ">=", value!.toLowerCase()),
-      where("lowercaseTitle", "<=", value!.toLowerCase() + "\uf8ff"),
-      where("tags", "array-contains", tag)
-    );
-
-    const querySnapshot = await getDocs(q);
-
-    const documents: Result[] = [];
-    querySnapshot.forEach((doc) => {
-      const data = doc.data();
-
-      documents.push({
-        id: doc.id,
-        url: data.url,
-        title: data.title,
-        name: data.name,
-        description: data.description,
-        image: data.image,
-      });
-    });
-    setResults(documents);
-  };
-
   useEffect(() => {
     if (!value) {
       setInputValue("");
       return;
     }
-    getDataFromFirestore();
-    setInputValue(value);
-  }, [value, tag]);
 
-  console.log({ results });
+    const fetchData = async () => {
+      const data = await getDataByDescription(value.split(/\s+/), tag);
+      setResults(data);
+      setInputValue(value);
+    };
+
+    fetchData();
+
+    setInputValue(value);
+  }, [value, tag, setInputValue]);
 
   return (
     <SearchPageContainer>

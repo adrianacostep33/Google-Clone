@@ -5,7 +5,6 @@ export const SearchPageContainer = styled("div")`
   width: 100%;
   height: 100vh;
   padding: 20px 0px 0px;
-  // overflow: "auto";
 `;
 
 export const HeaderContainer = styled("div")`
@@ -40,7 +39,7 @@ export const LogoContainer = styled("div")`
   position: relative;
   display: flex;
   align-items: center;
-  padding: opx;
+  // padding: 0px;
 
   img {
     object-fit: contain;

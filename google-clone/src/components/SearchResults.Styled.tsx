@@ -2,17 +2,18 @@ import { styled } from "@mui/system";
 
 const SearchResultsContainer = styled("div")`
   max-width: 650px;
-  margin-left: 107px;
-  // margin-bottom: 100px;
+  margin: 0px 50px 0px 100px;
   top: 140px;
   position: fixed;
   bottom: 0;
   width: 100vw;
-  // height: 100vh;
   overflow-y: scroll;
   overflow-x: hidden;
   ::-webkit-scrollbar {
     display: none;
+  }
+  @media (min-width: 1299px) {
+    margin: 0px 50px 0px 150px;
   }
 `;
 
