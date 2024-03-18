@@ -18,15 +18,8 @@ import {
   LowerFooter,
 } from "./Home.Styled";
 
-// import { seedFirestore } from "../seedFirestore";
-
 const Home = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-
-  // useEffect(() => {
-  //   // Call the seed function when the component mounts
-  //   seedFirestore();
-  // }, []);
 
   return (
     <HomePageContainer>
