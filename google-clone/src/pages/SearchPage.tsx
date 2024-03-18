@@ -35,16 +35,19 @@ import FilterButton from "../components/FilterButton";
 
 export interface Result {
   id: string;
-  url: string;
-  title: string;
-  name: string;
+  url?: string;
+  title?: string;
+  name?: string;
   image?: string;
   description?: string;
+  tags?: string[];
 }
 
 const SearchPage = () => {
   const [results, setResults] = useState<Result[]>([]);
   const [tag, setTag] = useState<string>("all");
+
+  console.log({ tag });
 
   const { setInputValue } = useSearchContext();
 
@@ -53,30 +56,82 @@ const SearchPage = () => {
   const value = queryParams.get("key");
 
   const db = getFirestore();
+  const resultsCollection = collection(db, "results");
 
   const getDataFromFirestore = async () => {
-    let q = query(
-      collection(db, "results"),
+    const q = query(
+      resultsCollection,
       where("lowercaseTitle", ">=", value!.toLowerCase()),
       where("lowercaseTitle", "<=", value!.toLowerCase() + "\uf8ff"),
       where("tags", "array-contains", tag)
     );
-
     const querySnapshot = await getDocs(q);
 
     const documents: Result[] = [];
+
     querySnapshot.forEach((doc) => {
       const data = doc.data();
 
-      documents.push({
+      const newDocument = {
         id: doc.id,
         url: data.url,
         title: data.title,
         name: data.name,
         description: data.description,
         image: data.image,
-      });
+      };
+
+      if (isDuplicate(newDocument, documents)) return;
+
+      documents.push(newDocument);
     });
+
+    // setResults(documents);
+  };
+
+  const isDuplicate = (newDocument: Result, documents: Result[]) => {
+    return documents.some((doc) => {
+      doc.description === newDocument.description;
+    });
+  };
+
+  const getDataByDescription = async (searchValue: string[]) => {
+    const documents: Array<Result> = [];
+    for (const element of searchValue) {
+      const q = query(
+        resultsCollection,
+        where("searchableDescription", "array-contains", element.toLowerCase())
+      );
+
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+
+        const newDocument = {
+          id: doc.id,
+          url: data.url,
+          title: data.title,
+          name: data.name,
+          description: data.description,
+          image: data.image,
+          tags: data.tags,
+        };
+
+        if (isDuplicate(newDocument, documents)) return;
+
+        console.log(newDocument.tags);
+
+        for (const docTag of newDocument.tags) {
+          // console.log({ docTag });
+
+          if (docTag === tag) {
+            documents.push(newDocument);
+          }
+        }
+      });
+    }
+
     setResults(documents);
   };
 
@@ -85,11 +140,10 @@ const SearchPage = () => {
       setInputValue("");
       return;
     }
+    getDataByDescription(value.split(/\s+/));
     getDataFromFirestore();
     setInputValue(value);
   }, [value, tag]);
-
-  console.log({ results });
 
   return (
     <SearchPageContainer>

@@ -108,6 +108,12 @@ export const FooterLeft = styled("div")`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: 440px) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
   a {
     display: block;
     white-space: nowrap;

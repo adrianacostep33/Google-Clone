@@ -5,6 +5,8 @@
 }
 
 body {
+  width: 100%;
+  height: 100%;
   background-color: #202124;
   font-size: 1.6em; /* default font of 16px */
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",

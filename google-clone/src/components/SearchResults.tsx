@@ -13,6 +13,8 @@ interface SearchResultsProps {
 }
 
 const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
+  // console.log("Resulr component", { results });
+
   return (
     <SearchResultsContainer>
       <Typography
@@ -28,7 +30,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
         About 30 results (0.30 seconds)
       </Typography>
 
-      {results.map<Result[]>((result: Result): any => {
+      {results.map((result: Result): JSX.Element => {
         return (
           <SearchResultsWrapper key={result.id}>
             <div>
@@ -57,7 +59,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                       textTransform: "none",
                     }}
                   >
-                    <Link to={result.url}>{result.url}</Link>
+                    {result.url && <Link to={result.url}>{result.url}</Link>}
                   </Typography>
                 </div>
                 <div>
