@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { Result } from "../pages/SearchPage";
 import { Typography, IconButton } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Result } from "../pages/SearchPage";
 import {
   SearchResultsContainer,
   SearchResultsTitle,

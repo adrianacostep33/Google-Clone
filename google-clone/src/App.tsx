@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./App.css";
+import "./firebase/firebase";
 import Home from "./pages/Home";
 import SearchPage from "./pages/SearchPage";
-import "./firebase/firebase";
+import "./App.css";
 
 function App() {
   return (

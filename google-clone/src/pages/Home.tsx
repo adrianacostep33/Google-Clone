@@ -19,7 +19,7 @@ import {
 } from "./Home.Styled";
 
 const Home = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn] = useState(false);
 
   return (
     <HomePageContainer>

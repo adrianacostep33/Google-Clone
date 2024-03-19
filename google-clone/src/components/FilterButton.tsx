@@ -1,6 +1,6 @@
-import { StyledOptions } from "./FilterButton.Styled";
-import ClearIcon from "@mui/icons-material/Clear";
 import { Link } from "react-router-dom";
+import ClearIcon from "@mui/icons-material/Clear";
+import { StyledOptions } from "./FilterButton.Styled";
 import { useSearchContext } from "../contexts/SearchContext";
 import tagEnum from "../enums/tagEnum";
 
